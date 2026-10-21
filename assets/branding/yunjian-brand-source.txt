@@ -1,0 +1,20 @@
+云间拾语｜云间托起一句话
+
+弧形云带向内回旋，以留白呈现语言被接住的动作。暖杏色语滴置于开口，作为视觉重心。
+
+文件说明
+yunjian-shiyu.svg：浅色背景主标，透明背景。
+yunjian-shiyu-dark.svg：深色背景主标，透明背景。
+yunjian-shiyu-mono.svg：单色版本，内联 SVG 时继承 currentColor；作为 img 使用默认黑色。
+favicon.svg：小尺寸版本，纯色填充，更紧凑的留白，并根据系统深浅色偏好调整颜色。
+favicon.ico：16、32、48、64 像素兼容版本。
+yunjian-shiyu.png：1024 像素透明 PNG。
+yunjian-shiyu-preview.png：深浅背景与实际像素尺寸展示。
+
+网页接入
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="alternate icon" href="/favicon.ico">
+
+主标建议在导航栏以 32px 或以上展示，16–24px 场景优先使用 favicon.svg。
+SVG 由两条矢量路径构成，无外部字体、嵌入位图、脚本或滤镜。
+深色版需由网站主题逻辑切换；favicon 的自动适配跟随系统偏好。
