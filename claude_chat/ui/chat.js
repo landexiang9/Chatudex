@@ -105,7 +105,7 @@ async function selectConversation(id) {
     if (currentConversationTitle) {
         currentConversationTitle.textContent = conv.title || summary?.title || "新对话";
     }
-    document.title = `${conv.title || summary?.title || "新对话"} · Chatudex`;
+    document.title = `${conv.title || summary?.title || "新对话"} · 云间拾语`;
     
     // 设置 Token 统计标签展示
     if (conv.input_tokens !== undefined && conv.output_tokens !== undefined) {

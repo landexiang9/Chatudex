@@ -17,10 +17,11 @@ const assert = require('assert/strict');
         await page.route('**/*',async route=>{
             const url=new URL(route.request().url());if(url.hostname!=='qa.local')return route.abort();
             const name=decodeURIComponent(url.pathname).replace(/^\//,'')||'index.html';
+            if(name==='site-info.json')return route.fulfill({json:{filings:[]}});
             if(name.startsWith('api/'))return route.fulfill({json:{success:true}});
             let body=await fs.readFile(path.join(process.cwd(),'claude_chat/ui',name));
             if(name==='index.html')body=Buffer.from(body.toString().replace('<script src="main.js"></script>',''));
-            const type={'.html':'text/html','.js':'text/javascript','.css':'text/css','.woff2':'font/woff2'}[path.extname(name)]||'application/octet-stream';
+            const type={'.html':'text/html','.js':'text/javascript','.css':'text/css','.woff2':'font/woff2','.svg':'image/svg+xml'}[path.extname(name)]||'application/octet-stream';
             await route.fulfill({body,contentType:type});
         });
         await page.goto('http://qa.local/');

@@ -1,6 +1,6 @@
-# AGENTS.md — Chatudex
+# AGENTS.md — 云间拾语
 
-The product name is Chatudex. `chatudex.py` and `chatudex.spec` are the canonical launch/build entrypoints; `claude_chat.py` remains a compatibility launcher. Keep the internal `claude_chat` package, database filenames, credential service names, encryption salts and sandbox identities stable so existing data and runtime permissions remain usable. Runtime icons live in `claude_chat/ui/icons/`; original artwork lives in `assets/branding/`.
+The product display name is 云间拾语 (formerly Chatudex). `chatudex.py` and `chatudex.spec` remain the canonical launch/build entrypoints, and the build output remains `Chatudex.exe`; `claude_chat.py` remains a compatibility launcher. Keep the internal `claude_chat` package, database filenames, credential service names, encryption salts and sandbox identities stable so existing data and runtime permissions remain usable. Runtime icons live in `claude_chat/ui/icons/`; original artwork lives in `assets/branding/`.
 
 ## Run / Build
 
@@ -167,6 +167,10 @@ Internal queues carry typed `StreamEvent` objects (`stream_protocol.py`); legacy
 The HTTP transport serializes each event to one NDJSON line via `event.to_wire()`; the GUI transport calls `window.onStreamEvent(wire)` (falling back to `onStreamMessage(type, data)`).
 
 ## Security token
+
+Optional public filing labels/links live in root `site_info.json` (beside the executable when frozen). `site_info.py` validates this independent file; unauthenticated `GET /site-info.json` exposes only sanitized `filings` entries. It must never expose app configuration or bypass authentication for `/api/*`. `ui/site_info.js` loads before the fetch authentication wrapper so sidebar and Token-dialog notices work before login. Empty/missing/invalid config preserves the original UI. See `SITE_INFO.md`; regression checks are `test/test_site_info.py` and `test/test_site_info_browser.js`.
+
+Keep actual `site_info.json` Git-ignored and untracked; commit only the blank `site_info.example.json` template. Filing configuration is one-time setup: after website code updates, page reloads and service restarts must automatically reuse the same local file without requiring users to re-enter filing details or edit UI code. Preserve the local file across builds and updates: never automatically create, overwrite, migrate, clear, sync to Git or delete it, and never replace it with the example. Edit actual filing settings only when the user explicitly requests it. Tests must patch the filing path to a temporary file. Auth filings belong inside the authentication card below the submit button, centered with theme-aware text colors; retain the sidebar indicator and centered filing links.
 
 Auto-generated 32-hex `security_token` is stored in `config.json` and **printed to stdout** at startup (never to the log file). All `/api/*` HTTP endpoints require it via `X-Security-Token` header, `Authorization: Bearer`, or `?token=` query param. The frontend stores it in `localStorage` and strips it from the address bar.
 

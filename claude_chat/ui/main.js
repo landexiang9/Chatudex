@@ -43,11 +43,13 @@ function handleUnauthorized() {
             </div>
             <div class="modal-footer auth-footer">
                 <button type="button" id="auth-submit-btn" class="btn btn-primary">验证并连接</button>
+                <div id="auth-site-info" class="site-filings auth-site-filings" hidden></div>
             </div>
         </div>
     `;
     
     document.body.appendChild(overlay);
+    window.ChatSiteInfo?.render();
     
     const input = document.getElementById('auth-token-input');
     const submitBtn = document.getElementById('auth-submit-btn');
@@ -92,7 +94,7 @@ function handleUnauthorized() {
             return;
         }
         if (event.key !== 'Tab') return;
-        const focusable = Array.from(overlay.querySelectorAll('button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])'));
+        const focusable = Array.from(overlay.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])'));
         if (!focusable.length) return;
         const first = focusable[0];
         const last = focusable[focusable.length - 1];

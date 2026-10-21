@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#0b1020">
     <meta name="color-scheme" content="light dark">
-    <title>Chatudex · AI 工作台</title>
-    <meta name="application-name" content="Chatudex">
-    <link rel="icon" href="icons/chatudex.ico" sizes="any">
-    <link rel="icon" type="image/png" href="icons/chatudex.png" sizes="256x256">
-    <link rel="apple-touch-icon" href="icons/chatudex.png">
+    <title>云间拾语 · AI 工作台</title>
+    <meta name="application-name" content="云间拾语">
+    <link rel="icon" href="icons/yunjian-shiyu.ico">
+    <link rel="icon" type="image/svg+xml" href="icons/yunjian-shiyu-favicon.svg" sizes="any">
+    <link rel="apple-touch-icon" href="icons/yunjian-shiyu-180.png" sizes="180x180">
     <!-- Local CSS and syntax highlighting styles -->
     <link rel="stylesheet" href="fonts.css">
     
@@ -38,9 +38,12 @@
         <aside class="sidebar" aria-label="对话导航">
             <div class="sidebar-header">
                 <div class="brand">
-                    <span class="brand-logo" aria-hidden="true"><img src="icons/chatudex.png" alt="" width="36" height="36"></span>
+                    <span class="brand-logo" aria-hidden="true">
+                        <img class="brand-mark-light" src="icons/yunjian-shiyu.svg" alt="" width="36" height="36">
+                        <img class="brand-mark-dark" src="icons/yunjian-shiyu-dark.svg" alt="" width="36" height="36">
+                    </span>
                     <span class="brand-copy">
-                        <span class="brand-name">Chatudex</span>
+                        <span class="brand-name">云间拾语</span>
                         <span class="brand-subtitle">多模型工作台</span>
                     </span>
                 </div>
@@ -72,7 +75,7 @@
 
             <div class="sidebar-footer">
                 <span class="privacy-indicator" aria-hidden="true"></span>
-                <span>本地会话 · 密钥加密</span>
+                <span id="sidebar-site-info">本地会话 · 密钥加密</span>
                 <button type="button" id="theme-toggle-btn" class="theme-toggle" aria-label="切换主题"><svg viewBox="0 0 24 24"><path d="M20 14a8 8 0 0 1-10-10 8 8 0 1 0 10 10Z"/></svg></button>
             </div>
         </aside>
@@ -139,7 +142,10 @@
             <div class="chat-stage">
                 <section id="chat-viewport" class="chat-viewport">
                     <div id="chat-empty-state" class="chat-empty-state">
-                        <div class="empty-state-mark" aria-hidden="true"><img src="icons/chatudex.png" alt="" width="48" height="48"></div>
+                        <div class="empty-state-mark" aria-hidden="true">
+                            <img class="brand-mark-light" src="icons/yunjian-shiyu.svg" alt="" width="48" height="48">
+                            <img class="brand-mark-dark" src="icons/yunjian-shiyu-dark.svg" alt="" width="48" height="48">
+                        </div>
                         <span class="empty-state-eyebrow">多模型 AI 工作台</span>
                         <h1>今天想一起完成什么？</h1>
                         <p>选择 Claude、DeepSeek 或 Gemini，开始写作、分析、编程与研究。</p>
@@ -1037,6 +1043,7 @@
     <script src="model_picker.js"></script>
     <script src="select_picker.js"></script>
     <script src="attachment_display.js"></script>
+    <script src="site_info.js"></script>
     <script src="api.js"></script>
     <script src="attachment_preview.js"></script>
     <script src="ui.js"></script>

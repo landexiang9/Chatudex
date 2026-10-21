@@ -14,6 +14,7 @@ logger = logging.getLogger("claude_chat")
 
 from claude_chat.clients import extract_final_response_content, sanitize_error_message
 from claude_chat.http_router import HttpApiRouter
+from claude_chat.site_info import load_site_info
 from claude_chat.stream_protocol import (
     StreamEvent,
     StreamEventQueue,
@@ -146,7 +147,7 @@ class ClaudeChatHTTPHandler(BaseHTTPRequestHandler):
         """
         ext = Path(file_path).suffix.lower()
         mime_map = {
-            ".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg",
+            ".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".svg": "image/svg+xml",
             ".gif": "image/gif", ".webp": "image/webp", ".ico": "image/x-icon", ".pdf": "application/pdf",
             ".txt": "text/plain", ".py": "text/x-python", ".js": "text/javascript",
             ".ts": "text/typescript", ".html": "text/html", ".css": "text/css",
@@ -317,6 +318,10 @@ class ClaudeChatHTTPHandler(BaseHTTPRequestHandler):
         分发 GET 请求：如果是 /api/ 路径则路由到 API 函数，否则由静态服务器处理
         """
         path = self.path.split('?')[0] # 剥离查询参数
+
+        if path == "/site-info.json":
+            self.send_json_response(load_site_info())
+            return
         
         if path.startswith("/api/"):
             if not self.is_request_authorized():

@@ -1,6 +1,9 @@
-# Chatudex
+# 云间拾语
 
-<img src="claude_chat/ui/icons/chatudex.png" alt="Chatudex icon" width="96" height="96">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="claude_chat/ui/icons/yunjian-shiyu-dark.svg">
+  <img src="claude_chat/ui/icons/yunjian-shiyu.svg" alt="云间拾语 icon" width="96" height="96">
+</picture>
 
 [简体中文](./README_ZH.md) | **English**
 
@@ -78,7 +81,13 @@ A powerful desktop GUI / headless web client for **Claude (Anthropic)**, **DeepS
 
 ## Quick Start
 
-Chatudex is the new name of Claude Chat. Launch with `chatudex.py`; existing `claude_chat.py` commands still work. Existing configuration, credential storage and `claude_chat.db` remain compatible. The internal Python package remains `claude_chat`.
+The product display name is now 云间拾语 (formerly Chatudex / Claude Chat). Launch with `chatudex.py`; existing `claude_chat.py` commands still work, and the packaged executable remains `Chatudex.exe`. Existing configuration, credential storage and `claude_chat.db` remain compatible. The internal Python package remains `claude_chat`.
+
+Optional website filing labels and links stay in the Git-ignored local `site_info.json`; only the blank `site_info.example.json` template is shared. Links are centered in the sidebar and inside the Token authentication card below the connect button, with theme-aware colors. An empty configuration preserves the existing interface, and updates preserve the local file. See [configuration details](SITE_INFO.md).
+
+Configure filing information once per deployment. Later code updates, page reloads and service restarts reuse the same local file automatically. Keep it beside the source launcher or packaged executable when updating a deployment; no UI edits or repeated setup are needed. The repository contains the display feature and an empty template, never the deployment's actual filing information.
+
+The SVG brand mark has separate light/dark variants and a compact favicon. See the [brand asset guide](assets/branding/yunjian-shiyu-icon-design.md) for source and runtime files.
 
 ### Windows (Automated Setup)
 

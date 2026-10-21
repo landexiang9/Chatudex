@@ -1,5 +1,7 @@
 # Chatudex icon
 
+Historical artwork retained for reference. The current 云间拾语 mark and theme variants are documented in [the active asset guide](yunjian-shiyu-icon-design.md).
+
 Created with the built-in image_gen tool.
 
 The open C combines the Chatudex initial with a speech bubble. A turquoise and mint folded ribbon sits on a deep indigo rounded square. The exterior is transparent. No text is embedded so the mark remains readable at small sizes.

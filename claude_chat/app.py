@@ -1,5 +1,5 @@
 """
-Chatudex - pywebview 桌面客户端核心应用模块
+云间拾语 - pywebview 桌面客户端核心应用模块
 基于 pywebview 将前端的 HTML/JS/CSS 视图层与后端的 Python 逻辑层及本地 SQLite 数据库进行绑定。
 """
 
@@ -331,7 +331,7 @@ class ClaudeChatApp:
             return
             
         # 图形界面 (GUI) 模式
-        logger.info("正在通过 pywebview 渲染启动 Chatudex 图形界面...")
+        logger.info("正在通过 pywebview 渲染启动 云间拾语 图形界面...")
         if port:
             protocol = "https" if is_ssl else "http"
             url_target = f"{protocol}://localhost:{port}/?token={self.config.get('security_token', '')}"
@@ -344,7 +344,7 @@ class ClaudeChatApp:
         
         # 初始化图形窗口
         self.window = webview.create_window(
-            title="Chatudex",
+            title="云间拾语",
             url=url_target,
             js_api=api,
             width=1200,
@@ -356,7 +356,7 @@ class ClaudeChatApp:
         
         # 挂载并进入 GUI 事件循环
         # Resolve from the package so this also works inside a PyInstaller bundle.
-        icon_path = Path(__file__).parent / "ui" / "icons" / "chatudex.ico"
+        icon_path = Path(__file__).parent / "ui" / "icons" / "yunjian-shiyu.ico"
         webview.start(icon=str(icon_path))
         
         # 退出窗口后的清理收尾阶段

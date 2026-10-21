@@ -25,11 +25,13 @@ def pytest_configure(config):
 
     import claude_chat.config as settings
     import claude_chat.db as database
+    import claude_chat.site_info as site_metadata
 
     stack = ExitStack()
     config._claude_chat_test_isolation = stack
     root = Path(stack.enter_context(tempfile.TemporaryDirectory(prefix="claude-chat-tests-")))
     for module, paths in (
+        (site_metadata, {"SITE_INFO_PATH": root / "site_info.json"}),
         (
             settings,
             {

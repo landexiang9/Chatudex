@@ -1,4 +1,4 @@
-# Chatudex — 从零实现提示词（保留扩展性版）
+# 云间拾语 — 从零实现提示词（保留扩展性版）
 
 > 用途：把下面【主提示词】整段复制给一个具备文件读写与命令执行能力的 AI 编码代理，让它从空目录开始完整实现本项目。
 >
@@ -13,7 +13,9 @@
 
 ````text
 你是一名资深 Python 桌面应用架构师。请从一个空目录开始，完整实现一个名为
-「Chatudex」的多平台 AI 聊天客户端，包括后端、前端、测试与打包配置。
+「云间拾语」的多平台 AI 聊天客户端，包括后端、前端、测试与打包配置。
+保留 `chatudex.py` / `chatudex.spec` 入口及 `Chatudex.exe` 产物名；内部 `claude_chat` 包、
+数据库文件名、凭据服务名、加密盐和沙箱身份保持兼容，不随显示名称改变。
 
 这不是一次性脚本任务：代码会被长期维护，后续要不断新增模型平台、新增请求协议、
 新增 UI 面板。因此「可扩展性」和「功能完整」是同等优先级的验收项，而不是加分项。
@@ -54,7 +56,7 @@
 
 5. 会话管理
    - 会话与消息持久化（SQLite + WAL）。
-   - 重命名、删除、自动清理旧会话。
+   - 重命名、显式删除；列出会话时不得自动删除历史记录。
    - 重新生成上一条回答、编辑任意历史用户消息并重发、从任意消息处分支出新会话。
    - 每条消息可查看原始数据包（DB 记录 + 实际 API 请求载荷），且预览里不得泄露真实路径与密钥。
 
@@ -64,7 +66,8 @@
    - 每模型可附加自定义参数（custom params），但与程序保留字段冲突时必须报错。
 
 7. UI
-   - 单页应用，Catppuccin Mocha 深色主题，玻璃拟态面板，动效克制。
+   - 单页应用，支持浅色、暗色和跟随系统主题；动效克制，适配手机。
+   - “云间拾语”SVG 主标按应用主题切换浅/深版本；网站标签使用专用小尺寸 favicon。
    - Markdown 渲染 + 代码高亮 + Mermaid + SVG/HTML 产物侧栏（全部沙箱化渲染）。
    - 系统提示词管理器（保存/编辑/切换预设）。
    - 全局设置弹窗，按平台分标签页。
@@ -81,6 +84,14 @@
    - 服务端模式：纯 HTTP 服务，供局域网/移动端浏览器访问。
    - 无论哪种模式，内置 HTTP 服务都必须启动（GUI 模式也启动）。
    - 静态资源、NDJSON 流式传输、SSL、Token 鉴权齐全。
+
+10. 可选网站备案信息
+   - 独立的本地 `site_info.json` 保存显示文字和 http(s) 跳转链接，支持多条。
+   - 左下角保留绿色指示点，备案链接居中；Token 认证卡片内在连接按钮下方居中显示。
+   - 备案文字颜色适配浅色、暗色及系统主题；配置缺失、空或无效时保留原界面。
+   - 无需鉴权的 `GET /site-info.json` 仅公开筛选后的备案信息，其他 `/api/*` 仍要求 Token。
+   - 实际配置 Git-ignore，仅提交空白 `site_info.example.json`；配置一次后，代码更新、
+     页面刷新和服务重启自动沿用。更新、打包和测试不得覆盖实际配置。
 
 ════════════════════════════════════════
 二、技术栈约束（不可替换）
@@ -230,6 +241,7 @@ claude_chat/
   server.py                        （ThreadingHTTPServer + Handler：静态文件、
                                     NDJSON 流、控制台流、SSL、Token 鉴权）
   http_router.py                   （HttpApiRouter：校验 + 分发，零业务）
+  site_info.py                     （独立备案配置的只读解析与公开字段筛选）
   config.py                        （ConfigManager、BASE_DIR、密钥三层存储、
                                     FALLBACK_MODELS、附件大小/扩展名限制、日志）
   db.py                            （DatabaseManager：SQLite/WAL、增量写、
@@ -263,6 +275,7 @@ claude_chat/
   ui/
     index.html, style.css, fonts.css, fonts/（woff2 字体）
     state.js, stream_protocol.js, dom.js, utils.js,
+    site_info.js                   （在 api.js 前加载，支持未登录时显示备案信息）
     api.js, model_picker.js, select_picker.js, attachment_display.js,
     attachment_preview.js, ui.js, chat.js, conversation_render.js,
     sandbox_settings.js, settings_components.js,
@@ -275,6 +288,7 @@ test/
   test_*.py, test_*.js             （见第八节的验收要求）
 build_executable.py, chatudex.spec, requirements.txt, pyproject.toml,
 setup_venv.bat, setup_venv.ps1, README.md, README_ZH.md, AGENTS.md, .gitignore
+site_info.example.json, SITE_INFO.md （空白备案模板与部署说明；实际 site_info.json 不提交）
 
 文件体积纪律：单个源文件不得超过 1200 行。超过就说明该拆了，请主动拆分并更新文档。
 
@@ -298,7 +312,8 @@ S3. 安全令牌：启动时生成 32 位 hex 的 security_token 存入 config.j
     **打印到 stdout（绝不写日志文件）**。所有 `/api/*` 必须校验，
     支持 `X-Security-Token` 头、`Authorization: Bearer`、`?token=` 查询参数三种方式。
     前端存 localStorage 并从地址栏抹掉。
-    Token 缺失/错误时，静态文件与 API 都不得泄露内容。
+    Token 缺失/错误时，业务 API 不得泄露内容。静态登录界面及公开的 `/site-info.json`
+    可匿名读取；后者只能返回独立备案配置的文字/链接白名单，不得暴露应用配置与凭据。
 
 S4. 附件存储：只允许「受管目录 + 随机 preview_id」寻址；
     校验 preview_id 格式、拒绝符号链接、限制元数据体积、限制预览文本/图片字节数与像素数，
@@ -474,12 +489,13 @@ W7. 如果实现过程中你发现我给的某条约束（例如某常量值、�
 ## 精简版（上下文有限时用这个）
 
 ```text
-从零实现「Chatudex」多平台 AI 聊天客户端（Python 3.10 + pywebview + 原生 JS + SQLite，
+从零实现「云间拾语」多平台 AI 聊天客户端（Python 3.10 + pywebview + 原生 JS + SQLite，
 无前端框架/无构建步骤/全离线）。功能：Claude/DeepSeek/Gemini 三平台 + 自定义供应商、
 流式输出与可中断、思维链通道、多引擎联网搜索与网页读取、图片/PDF/Office/文本附件与 OCR、
 会话持久化与重试/编辑/分支、每模型生成参数与自定义参数、Catppuccin Mocha 深色 UI、
 默认关闭的代码沙箱（Windows AppContainer / Linux Docker，fail-closed）、
-GUI 与 HTTP 服务双形态（含 NDJSON 流与 Token 鉴权）。
+GUI 与 HTTP 服务双形态（含 NDJSON 流与 Token 鉴权）。保留 chatudex 启动/构建入口和内部数据身份；
+使用浅/深色 SVG 标识，并支持只配置一次的本地备案显示（实际配置不提交 Git，更新自动沿用）。
 
 架构硬约束（这是验收重点）：
 1. 五层依赖单向：UI → 桥接(server.py) → 路由(http_router.py，零业务) →

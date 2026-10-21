@@ -523,8 +523,8 @@ function renderConversations() {
         currentConversationTitle.textContent = activeConversation?.title || currentConv?.title || "新对话";
     }
     document.title = activeConversation?.title
-        ? `${activeConversation.title} · Chatudex`
-        : "Chatudex · AI 工作台";
+        ? `${activeConversation.title} · 云间拾语`
+        : "云间拾语 · AI 工作台";
 }
 
 conversationSearchInput?.addEventListener("input", renderConversations);

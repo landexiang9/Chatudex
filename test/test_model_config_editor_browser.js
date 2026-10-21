@@ -8,6 +8,7 @@ const fs = require('fs/promises'); const path = require('path'); const assert = 
   await page.route('**/*', async route => {
    const url = new URL(route.request().url()); if (url.hostname !== 'qa.local') return route.abort();
    const name=decodeURIComponent(url.pathname).replace(/^\//,'') || 'index.html';
+   if (name === 'site-info.json') return route.fulfill({json:{filings:[]}});
    if (name === 'api/preview_model_request') {
     const script = 'import json,sys; from claude_chat.request_params import preview_generation_params,request_protocol; d=json.loads(sys.argv[1]); c={"deepseek_use_responses":d.get("deepseek_use_responses",False),"model_configs":{d["model"]:d.get("model_config",{})},"custom_providers":[{"id":"responses-qa","provider_adapter":"responses"}]}; p=preview_generation_params(d["platform"],d["model"],c); print(json.dumps({"params":p,"request_protocol":request_protocol(d["platform"],c)},ensure_ascii=False))';
     const {stdout} = await require('util').promisify(require('child_process').execFile)(process.env.PYTHON_EXECUTABLE || 'python',['-c',script,route.request().postData()],{env:{...process.env,PYTHONIOENCODING:'utf-8'}});
@@ -16,7 +17,7 @@ const fs = require('fs/promises'); const path = require('path'); const assert = 
    if (name.startsWith('api/')) return route.fulfill({json:{}});
    let body = await fs.readFile(path.join(process.cwd(),'claude_chat/ui',name));
    if(name==='index.html') body=Buffer.from(body.toString().replace('<script src="main.js"></script>',''));
-   const type={'.html':'text/html','.js':'text/javascript','.css':'text/css','.woff2':'font/woff2'}[path.extname(name)] || 'application/octet-stream';
+   const type={'.html':'text/html','.js':'text/javascript','.css':'text/css','.woff2':'font/woff2','.svg':'image/svg+xml'}[path.extname(name)] || 'application/octet-stream';
    await route.fulfill({body,contentType:type});
   });
   await page.goto('http://qa.local/');

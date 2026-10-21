@@ -94,7 +94,7 @@ with tempfile.TemporaryDirectory(prefix='title-browser-qa-') as directory, ExitS
         await page.locator('#input-box').fill('为聊天工具增加对话标题'); await page.locator('#send-btn').click();
         await page.waitForFunction(() => !isStreaming && !isSending && messageList.textContent.includes('Offline answer'));
         await page.waitForFunction(() => document.getElementById('current-conversation-title').textContent === 'AI claude-test 标题 1');
-        assert.equal(await page.title(),'AI claude-test 标题 1 · Chatudex');
+        assert.equal(await page.title(),'AI claude-test 标题 1 · 云间拾语');
         const originalMessages = await page.evaluate(() => JSON.stringify(currentConv.messages));
         await page.locator('#current-conversation-title').click();
         await page.locator('#conversation-title-input').fill('<img src=x onerror=alert(1)> 手动标题');

@@ -47,7 +47,7 @@ exe = EXE(
     a.datas,
     [],
     name='Chatudex',
-    icon='claude_chat/ui/icons/chatudex.ico',
+    icon='claude_chat/ui/icons/yunjian-shiyu.ico',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,

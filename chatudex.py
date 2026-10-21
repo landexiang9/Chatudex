@@ -1,5 +1,5 @@
 """
-Chatudex - Multi-provider AI desktop and web client (Entry Point)
+云间拾语 - Multi-provider AI desktop and web client (Entry Point)
 Imports and runs the modularized ClaudeChatApp from the claude_chat package.
 """
 # 导入系统与路径相关的标准库
@@ -23,7 +23,7 @@ from claude_chat.app import ClaudeChatApp
 
 if __name__ == "__main__":
     # 初始化命令行参数解析器，以便在 Linux、Termux 等无 GUI 环境下灵活控制程序启动
-    parser = argparse.ArgumentParser(description="Chatudex - 跨平台多模型 AI 聊天客户端")
+    parser = argparse.ArgumentParser(description="云间拾语 - 跨平台多模型 AI 聊天客户端")
 
     # 添加 --server / -s 选项：强制开启纯 Web 服务模式（不启动本地 GUI 窗口）
     parser.add_argument("-s", "--server", action="store_true", help="强制以纯 Web 服务模式 (Headless) 运行，不启动 GUI 窗口")

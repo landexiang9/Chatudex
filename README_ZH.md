@@ -1,16 +1,25 @@
-# Chatudex 中文文档
+# 云间拾语 中文文档
 
-<img src="claude_chat/ui/icons/chatudex.png" alt="Chatudex 图标" width="96" height="96">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="claude_chat/ui/icons/yunjian-shiyu-dark.svg">
+  <img src="claude_chat/ui/icons/yunjian-shiyu.svg" alt="云间拾语 图标" width="96" height="96">
+</picture>
 
 [English](./README.md) | **简体中文**
 
-Chatudex 是一个功能强大的桌面 GUI / Web 客户端，支持 **Claude (Anthropic)**、**DeepSeek** 和 **Google Gemini** API，基于 **pywebview** 与现代网页技术构建。界面参考 **Nebula Chat** 的简洁布局，支持亮色、暗色与跟随系统主题，支持多平台 AI 切换、流式对话响应、联网搜索集成、文件附件上传、可折叠的推理思维轨迹（Reasoning/Thinking Steps）、离线本地静态资源、自定义系统提示词管理器、Artifacts 沙盒预览侧边栏、本地代码沙盒终端以及多平台命令行快速部署。
+云间拾语是一个功能强大的桌面 GUI / Web 客户端，支持 **Claude (Anthropic)**、**DeepSeek** 和 **Google Gemini** API，基于 **pywebview** 与现代网页技术构建。界面参考 **Nebula Chat** 的简洁布局，支持亮色、暗色与跟随系统主题，支持多平台 AI 切换、流式对话响应、联网搜索集成、文件附件上传、可折叠的推理思维轨迹（Reasoning/Thinking Steps）、离线本地静态资源、自定义系统提示词管理器、Artifacts 沙盒预览侧边栏、本地代码沙盒终端以及多平台命令行快速部署。
 
 ---
 
 ## 核心特性
 
-项目已由 Claude Chat 更名为 Chatudex。新启动入口为 `chatudex.py`，原有 `claude_chat.py` 命令仍然可用。现有配置、凭据和 `claude_chat.db` 聊天记录兼容沿用，内部 Python 包名保留为 `claude_chat`。
+项目显示名称已改为“云间拾语”（原 Chatudex / Claude Chat）。启动入口继续使用 `chatudex.py`，原有 `claude_chat.py` 命令仍然可用，打包产物仍为 `Chatudex.exe`。现有配置、凭据和 `claude_chat.db` 聊天记录兼容沿用，内部 Python 包名保留为 `claude_chat`。
+
+网站备案文字和跳转链接保存在本地 `site_info.json`，不提交到 GitHub；仓库仅提供空白 `site_info.example.json`。备案信息在左下角及 Token 认证卡片的连接按钮下方居中显示，适配深浅主题；未配置时保持原样，后续更新保留本地配置。详见[备案显示配置](SITE_INFO.md)。
+
+每个部署只需配置一次。以后更新代码、刷新页面或重启服务时，会自动沿用同一份本地备案信息；更新时保留启动入口或可执行文件同级的配置文件即可，无需改页面或重新填写。GitHub 只同步显示功能和空白模板，不包含实际备案信息。
+
+新 SVG 标识提供浅色、深色及小尺寸 favicon 版本，原稿与运行资源见[图标资源说明](assets/branding/yunjian-shiyu-icon-design.md)。
 
 ### 🤖 多平台 AI 支持
 - **Claude (Anthropic)** — 完整支持，包括 Extended Thinking 推理思维（自适应/启用模式）、多模态视觉、PDF 解析以及原生联网搜索。
