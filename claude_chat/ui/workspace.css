@@ -137,7 +137,10 @@ body { background:var(--base); height:var(--app-height,100dvh); }
     .input-section { padding-bottom:max(8px,env(safe-area-inset-bottom)); }
     .input-box { font-size:16px; max-height:150px; } /* prevent iOS zoom */
     .input-capsule { border-radius:14px; min-height:54px; }
-    .composer-meta { min-height:24px; } .composer-shortcut { display:none; }
+    .composer-meta { min-height:24px; flex-wrap:wrap; row-gap:4px; }
+    .composer-meta-right { min-width:0; max-width:100%; margin-left:auto; }
+    .token-label { min-width:0; overflow-wrap:anywhere; }
+    .composer-shortcut { display:none; }
     .settings-modal-card { inset:0; width:100%; height:var(--app-height,100dvh); border-radius:0; }
     .modal-overlay { padding:8px; } .modal-card { max-height:calc(var(--app-height,100dvh) - 16px); }
     .settings-modal-body { display:flex; flex-direction:column; } .settings-nav { flex-direction:row; overflow:auto; padding:8px; border-right:0; border-bottom:1px solid var(--border); }

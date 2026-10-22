@@ -313,3 +313,9 @@ node test/test_model_config_editor_browser.js
 ```
 
 Set `PLAYWRIGHT_MODULE` to the Playwright module path if it is outside the project, and `PYTHON_EXECUTABLE` to the project environment's Python for model-editor checks. These tests use local assets and mocked APIs. They cover category navigation, search without credential values, drafts across pages, validation, save failures, themes, mobile layout and model parameter editing.
+
+## License
+
+This project's code is licensed under the **GNU Affero General Public License v3.0 only** (`AGPL-3.0-only`). See [LICENSE](LICENSE) for the full terms. Commercial use is permitted. If you modify the covered program and let users interact with it remotely over a network, section 13 requires offering those users access to the Corresponding Source of your version.
+
+Third-party components retain their own licenses and notices. Source code is available in [this repository](https://github.com/landexiang9/Chatudex). The Windows build includes the license text and also copies it to `dist/LICENSE` beside `Chatudex.exe`; include it when distributing the build. For older releases, consult the licensing information in that release.

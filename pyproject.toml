@@ -4,7 +4,7 @@ version = "1.0.0"
 description = "Chatudex: multi-platform AI desktop GUI / web client for Claude, DeepSeek, and Gemini APIs, built with pywebview."
 readme = "README.md"
 requires-python = ">=3.10"
-license = {text = "MIT"}
+license = {text = "AGPL-3.0-only"}
 authors = [
     {name = "Developer"}
 ]

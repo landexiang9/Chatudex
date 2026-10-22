@@ -748,7 +748,6 @@ html.attachment-preview-open, html.attachment-preview-open body { overflow: hidd
     .input-action-btn, .send-btn { width: 40px; height: 40px; flex-basis: 40px; }
     .markdown-switch { padding: 0 1px; }
     .markdown-switch-label { display: none; }
-    .token-label { display: none; }
     .attachments-area { grid-template-columns: minmax(0,1fr); }
     .message-attachments { width: 100%; }
     .remove-att-btn, .attachment-preview-close-btn { min-width: 44px; min-height: 44px; }

@@ -2,6 +2,8 @@
 
 The product display name is 云间拾语 (formerly Chatudex). `chatudex.py` and `chatudex.spec` remain the canonical launch/build entrypoints, and the build output remains `Chatudex.exe`; `claude_chat.py` remains a compatibility launcher. Keep the internal `claude_chat` package, database filenames, credential service names, encryption salts and sandbox identities stable so existing data and runtime permissions remain usable. Runtime icons live in `claude_chat/ui/icons/`; original artwork lives in `assets/branding/`.
 
+Project code uses `AGPL-3.0-only`; keep the full root `LICENSE`, project metadata and README statements consistent. Preserve third-party license/copyright notices. `chatudex.spec` bundles `LICENSE`, and `build_executable.py` copies it beside the executable as `dist/LICENSE`; retain both behaviors when changing packaging.
+
 ## Run / Build
 
 ```bash

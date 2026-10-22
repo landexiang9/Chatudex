@@ -321,3 +321,9 @@ node test/test_model_config_editor_browser.js
 ```
 
 若 Playwright 位于项目外，将 `PLAYWRIGHT_MODULE` 指向其模块路径；模型编辑器检查需将 `PYTHON_EXECUTABLE` 指向项目环境的 Python。这些测试使用本地资源和模拟 API，覆盖分类导航、排除凭据值的设置搜索、跨页编辑、校验、保存失败、主题、手机布局和模型参数编辑。
+
+## 许可证
+
+本项目代码采用 **GNU Affero General Public License v3.0 only**（`AGPL-3.0-only`，仅第 3 版），完整条款见 [LICENSE](LICENSE)。该许可证允许商用。如果修改受许可证覆盖的程序并让用户通过网络与其交互，第 13 条要求向这些用户提供获取该版本对应源代码的方式。
+
+第三方组件继续遵循各自的许可证与声明。项目源码见[本仓库](https://github.com/landexiang9/Chatudex)。Windows 构建会内置许可证正文，并将其复制到 `Chatudex.exe` 同级的 `dist/LICENSE`；分发构建时一并提供该文件。历史版本请查阅对应版本的授权说明。

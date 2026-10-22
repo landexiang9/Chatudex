@@ -57,12 +57,14 @@ def verify_output():
     exe_file = dist_dir / "Chatudex.exe"
     
     if exe_file.exists():
+        shutil.copy2(Path(__file__).with_name("LICENSE"), dist_dir / "LICENSE")
         size_mb = exe_file.stat().st_size / (1024 * 1024)
         print("===================================================")
         print("[成功] 打包完成！")
         print("===================================================")
         print(f" 可执行文件路径: {exe_file.resolve()}")
         print(f" 文件大小: {size_mb:.2f} MB")
+        print(f" 许可证文件: {(dist_dir / 'LICENSE').resolve()}")
         print(" 说明:")
         print("   1. 您可以直接双击运行此 exe 文件启动图形界面。")
         print("   2. 可以将此文件拷贝到其他 64位 Windows 系统中直接部署和运行，无需安装 Python。")

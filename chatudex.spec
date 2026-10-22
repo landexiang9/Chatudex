@@ -7,6 +7,7 @@ a = Analysis(
     pathex=[],
     binaries=[],
     datas=[
+        ('LICENSE', '.'),
         ('claude_chat/ui', 'claude_chat/ui'),
         ('models_registry.json', '.'),
     ],
